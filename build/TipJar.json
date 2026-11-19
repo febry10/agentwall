@@ -1,0 +1,38 @@
+{
+  "contractName": "TipJar",
+  "sourceFile": "TestHelpers.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "calls",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "received",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    }
+  ],
+  "bytecode": "0x6080604052348015600e575f80fd5b5060ed8061001b5f395ff3fe6080604052600436106028575f3560e01c8063305f72b714605c57806383a6deb5146081575f80fd5b36605857345f80828254603a91906093565b925050819055506001805f828254605091906093565b925050819055005b5f80fd5b3480156066575f80fd5b50606f60015481565b60405190815260200160405180910390f35b348015608b575f80fd5b50606f5f5481565b8082018082111560b157634e487b7160e01b5f52601160045260245ffd5b9291505056fea26469706673582212209efb221efb53bf080417a929dbf86f0a6844bd9dab6b8eaab74fe7155587aa0264736f6c634300081a0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.26+commit.8a97fa7a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"calls\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"received\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"TestHelpers.sol\":\"TipJar\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"TestHelpers.sol\":{\"keccak256\":\"0x87628c52224e208f79492f1d97c5f83fbe270e8ec0d941bbe20ade87b60c9e01\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f68fdd79618f6f77a2f6d6351b0c194b481aea50cbf94e89c67cdd06959b2d8a\",\"dweb:/ipfs/QmUVwvPTwc4ZBgRSCs4br8keF59v3YhVPVodooZc2cR8De\"]}},\"version\":1}"
+}

@@ -1,0 +1,8 @@
+{
+  "network": "bsc-mainnet",
+  "chainId": 56,
+  "contract": "0xC12F4CFB17618D2B87ae53a7FC573fD00f76D68E",
+  "deployTx": "0xacc1a5d4053c6102836f635a1ccfcb195ed84fc58c41ac404a2dd02cdaaed8e6",
+  "deployer": "0x6F0181870a0658cF86a8737316f4cFC049eCB31b",
+  "deployedAt": "2026-11-19T01:18:43.799Z"
+}

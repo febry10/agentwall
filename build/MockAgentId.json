@@ -1,0 +1,40 @@
+{
+  "contractName": "MockAgentId",
+  "sourceFile": "MockAgentId.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "mint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6080604052348015600e575f80fd5b5061013f8061001c5f395ff3fe608060405234801561000f575f80fd5b5060043610610034575f3560e01c80636a6278421461003857806370a082311461004d575b5f80fd5b61004b6100463660046100b7565b610087565b005b61007561005b3660046100b7565b6001600160a01b03165f9081526020819052604090205490565b60405190815260200160405180910390f35b6001600160a01b0381165f9081526020819052604081208054600192906100af9084906100e4565b909155505050565b5f602082840312156100c7575f80fd5b81356001600160a01b03811681146100dd575f80fd5b9392505050565b8082018082111561010357634e487b7160e01b5f52601160045260245ffd5b9291505056fea2646970667358221220092ede0a2dd6c2021b5f363495eb3e51e71761946b7bb7b0579a209ab437a5f364736f6c634300081a0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.26+commit.8a97fa7a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"Test-only stand-in for the Agent ID NFT: a balanceOf anyone can mint to.         Never deployed to mainnet; it exists so AgentWall's gate can be tested         on a local chain where the real Agent ID contract does not exist.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"MockAgentId.sol\":\"MockAgentId\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"MockAgentId.sol\":{\"keccak256\":\"0x2dac54faffac5638193d7cd0cb0ecc5cca504f71d7a5af044e9a429bff87b91e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://832eebc12a878ffe56eefe19562813fc833a465e07a8a79e2cefaf567bea47fd\",\"dweb:/ipfs/QmfESEHzDz1YYkyStiZVRp2CQEuCrUEZ6TvPUUiSrNQTSh\"]}},\"version\":1}"
+}

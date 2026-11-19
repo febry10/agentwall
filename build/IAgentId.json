@@ -1,0 +1,27 @@
+{
+  "contractName": "IAgentId",
+  "sourceFile": "AgentWall.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.26+commit.8a97fa7a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"Minimal read interface of the Agent ID NFT (SPACE ID Agent ID, ERC-721).\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"AgentWall.sol\":\"IAgentId\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"AgentWall.sol\":{\"keccak256\":\"0x1c8aa4dd7b770193323efd7b96f8fd6f2984481ce29b029682259fb17c96d3d2\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://767d0f8efcdd81b27d9005bcf20f52e501e33f6fa1dacdd88928f67cef5f8f0c\",\"dweb:/ipfs/QmbF34vi4ioaPyfQiZ3vNAJKHNUtEpVYQSGCXomRryCHfm\"]}},\"version\":1}"
+}

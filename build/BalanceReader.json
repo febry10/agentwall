@@ -1,0 +1,27 @@
+{
+  "contractName": "BalanceReader",
+  "sourceFile": "TestHelpers.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "who",
+          "type": "address"
+        }
+      ],
+      "name": "bal",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6080604052348015600e575f80fd5b5060b580601a5f395ff3fe6080604052348015600e575f80fd5b50600436106026575f3560e01c80635580f72a14602a575b5f80fd5b604260353660046054565b6001600160a01b03163190565b60405190815260200160405180910390f35b5f602082840312156063575f80fd5b81356001600160a01b03811681146078575f80fd5b939250505056fea264697066735822122025b13fe56e1ed02bed423a83112e28425477e0933e7193bc333400f433d0201864736f6c634300081a0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.26+commit.8a97fa7a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"}],\"name\":\"bal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"Test-only helpers. Never deployed to mainnet.         BalanceReader reads balances inside the EVM (authoritative even if a         local chain's eth_getBalance RPC misbehaves), and TipJar is a         contract recipient that records what it actually receives.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"TestHelpers.sol\":\"BalanceReader\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"TestHelpers.sol\":{\"keccak256\":\"0x87628c52224e208f79492f1d97c5f83fbe270e8ec0d941bbe20ade87b60c9e01\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f68fdd79618f6f77a2f6d6351b0c194b481aea50cbf94e89c67cdd06959b2d8a\",\"dweb:/ipfs/QmUVwvPTwc4ZBgRSCs4br8keF59v3YhVPVodooZc2cR8De\"]}},\"version\":1}"
+}

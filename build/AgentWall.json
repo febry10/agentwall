@@ -1,0 +1,472 @@
+{
+  "contractName": "AgentWall",
+  "sourceFile": "AgentWall.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "agentIdContract",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "who",
+          "type": "address"
+        }
+      ],
+      "name": "AlreadyCheckedInToday",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "EmptyMessage",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "bytesGiven",
+          "type": "uint256"
+        }
+      ],
+      "name": "MessageTooLong",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "who",
+          "type": "address"
+        }
+      ],
+      "name": "NoAgentId",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "who",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "readyAt",
+          "type": "uint256"
+        }
+      ],
+      "name": "PostCooldown",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "SelfTip",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroTip",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "agent",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "day",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "streak",
+          "type": "uint64"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "points",
+          "type": "uint256"
+        }
+      ],
+      "name": "CheckedIn",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "author",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "name": "MessagePosted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Tipped",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "AGENT_ID",
+      "outputs": [
+        {
+          "internalType": "contract IAgentId",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAX_MESSAGE_BYTES",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "POST_COOLDOWN",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "who",
+          "type": "address"
+        }
+      ],
+      "name": "agentStats",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint64",
+              "name": "checkIns",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "streak",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "lastCheckInDay",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "messages",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "lastPostAt",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint256",
+              "name": "points",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tippedTotal",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "receivedTotal",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct AgentWall.Stats",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "checkIn",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "who",
+          "type": "address"
+        }
+      ],
+      "name": "hasInteracted",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "who",
+          "type": "address"
+        }
+      ],
+      "name": "holdsAgentId",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "count",
+          "type": "uint256"
+        }
+      ],
+      "name": "latestMessages",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "author",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "text",
+              "type": "string"
+            },
+            {
+              "internalType": "uint64",
+              "name": "timestamp",
+              "type": "uint64"
+            }
+          ],
+          "internalType": "struct AgentWall.Message[]",
+          "name": "out",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "messageAt",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "author",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "text",
+              "type": "string"
+            },
+            {
+              "internalType": "uint64",
+              "name": "timestamp",
+              "type": "uint64"
+            }
+          ],
+          "internalType": "struct AgentWall.Message",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "messageCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "name": "postMessage",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "tip",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalAgents",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalCheckIns",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalTipVolume",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalTips",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x60a0604052348015600e575f80fd5b50604051611422380380611422833981016040819052602b91603b565b6001600160a01b03166080526066565b5f60208284031215604a575f80fd5b81516001600160a01b0381168114605f575f80fd5b9392505050565b60805161139d6100855f395f81816103a101526103fe015261139d5ff3fe6080604052600436106100ef575f3560e01c80636dbacf4911610087578063ab90366f11610057578063ab90366f14610353578063ac733ef714610368578063c50537121461037b578063e905182a14610390575f80fd5b80636dbacf49146101ff5780638187f846146102f2578063990de8ae14610329578063a563eaa31461033e575f80fd5b80633dbcc8d1116100c25780633dbcc8d11461018c5780634df9cb731461019f57806365b41ee2146101cb5780636630f88f146101e0575f80fd5b8063111f2a94146100f3578063112130861461011b578063183ff0851461014a578063332c0cf014610160575b5f80fd5b3480156100fe575f80fd5b50610108610e1081565b6040519081526020015b60405180910390f35b348015610126575f80fd5b5061013a610135366004610ef3565b6103db565b6040519015158152602001610112565b348015610155575f80fd5b5061015e61046e565b005b34801561016b575f80fd5b5061017f61017a366004610f20565b6106ef565b6040516101129190610fb1565b348015610197575f80fd5b505f54610108565b3480156101aa575f80fd5b506101be6101b9366004610f20565b6108ba565b6040516101129190611014565b3480156101d6575f80fd5b5061010861011881565b3480156101eb575f80fd5b5061015e6101fa366004611026565b6109da565b34801561020a575f80fd5b506102e5610219366004610ef3565b60408051610100810182525f80825260208201819052918101829052606081018290526080810182905260a0810182905260c0810182905260e0810191909152506001600160a01b03165f9081526001602081815260409283902083516101008101855281546001600160401b038082168352600160401b8204811694830194909452600160801b8104841695820195909552600160c01b9094048216606085015291820154166080830152600281015460a0830152600381015460c08301526004015460e082015290565b6040516101129190611092565b3480156102fd575f80fd5b5061013a61030c366004610ef3565b6001600160a01b03165f9081526002602052604090205460ff1690565b348015610334575f80fd5b5061010860055481565b348015610349575f80fd5b5061010860045481565b34801561035e575f80fd5b5061010860065481565b61015e610376366004610ef3565b610c63565b348015610386575f80fd5b5061010860035481565b34801561039b575f80fd5b506103c37f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b039091168152602001610112565b6040516370a0823160e01b81526001600160a01b0382811660048301525f9182917f000000000000000000000000000000000000000000000000000000000000000016906370a0823190602401602060405180830381865afa158015610443573d5f803e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104679190611127565b1192915050565b610477336103db565b61049b576040516306189c6d60e41b81523360048201526024015b60405180910390fd5b5f6104a96201518042611152565b335f908152600160205260409020805491925090600160801b90046001600160401b0316821480156104e4575080546001600160401b031615155b156105045760405163034a12d360e61b8152336004820152602401610492565b61050f600183611171565b8154600160801b90046001600160401b031603610574578054600190829060089061054b908490600160401b90046001600160401b031661118a565b92506101000a8154816001600160401b0302191690836001600160401b03160217905550610592565b80546fffffffffffffffff00000000000000001916600160401b1781555b80546001600160401b03808416600160801b0267ffffffffffffffff60801b1983168117845560019284925f926105d092869291821691161761118a565b92506101000a8154816001600160401b0302191690836001600160401b031602179055505f6005825f0160089054906101000a90046001600160401b03166001600160401b03161161064a57815461063a90600190600160401b90046001600160401b0316611171565b61064590600a6111a9565b61064d565b60285b905061065a81600a6111c0565b826002015f82825461066c91906111c0565b92505081905550600160045f82825461068591906111c0565b90915550610694905033610e93565b8154600283015460408051868152600160401b9093046001600160401b0316602084015282015233907f152b2f32563831d2bc8be1a09e9a4942e3c388455f48524f4f93453cb514164f9060600160405180910390a2505050565b5f80546060918184116107025783610704565b815b9050806001600160401b0381111561071e5761071e6111d3565b60405190808252806020026020018201604052801561078357816020015b61077060405180606001604052805f6001600160a01b03168152602001606081526020015f6001600160401b031681525090565b81526020019060019003908161073c5790505b5092505f5b818110156108b2575f8161079d600186611171565b6107a79190611171565b815481106107b7576107b76111e7565b5f918252602091829020604080516060810190915260039092020180546001600160a01b0316825260018101805492939192918401916107f6906111fb565b80601f0160208091040260200160405190810160405280929190818152602001828054610822906111fb565b801561086d5780601f106108445761010080835404028352916020019161086d565b820191905f5260205f20905b81548152906001019060200180831161085057829003601f168201915b5050509183525050600291909101546001600160401b0316602090910152845185908390811061089f5761089f6111e7565b6020908102919091010152600101610788565b505050919050565b6108ee60405180606001604052805f6001600160a01b03168152602001606081526020015f6001600160401b031681525090565b5f8281548110610900576109006111e7565b5f918252602091829020604080516060810190915260039092020180546001600160a01b03168252600181018054929391929184019161093f906111fb565b80601f016020809104026020016040519081016040528092919081815260200182805461096b906111fb565b80156109b65780601f1061098d576101008083540402835291602001916109b6565b820191905f5260205f20905b81548152906001019060200180831161099957829003601f168201915b5050509183525050600291909101546001600160401b031660209091015292915050565b6109e3336103db565b610a02576040516306189c6d60e41b8152336004820152602401610492565b805f819003610a245760405163017636cb60e71b815260040160405180910390fd5b610118811115610a4a576040516331ea3a9160e21b815260048101829052602401610492565b335f90815260016020819052604090912090810154610a7590610e10906001600160401b03166111c0565b421015610ac35760018101543390610a9990610e10906001600160401b03166111c0565b604051632ba1f26160e01b81526001600160a01b0390921660048301526024820152604401610492565b6001818101805467ffffffffffffffff1916426001600160401b039081169190911790915582548391601891610b02918591600160c01b90041661118a565b92506101000a8154816001600160401b0302191690836001600160401b031602179055506005816002015f828254610b3a91906111c0565b90915550506040805160608101825233815281516020601f87018190048102820181019093528581525f92808301919088908890819084018382808284375f920182905250938552505050426001600160401b031660209283015283546001808201865594825290829020835160039092020180546001600160a01b0319166001600160a01b03909216919091178155908201519192909190820190610be0908261127f565b50604091909101516002909101805467ffffffffffffffff19166001600160401b03909216919091179055610c1433610e93565b5f543390610c2490600190611171565b7f16effde6b8c5f78279aca5974057ff6b6fd8c9ab5e96994c7f1b62cbfcbbd78b8686604051610c55929190611339565b60405180910390a350505050565b610c6c336103db565b610c8b576040516306189c6d60e41b8152336004820152602401610492565b345f03610cab5760405163659d0bd560e01b815260040160405180910390fd5b336001600160a01b03821603610cd45760405163d7e33bad60e01b815260040160405180910390fd5b610cdd816103db565b610d05576040516306189c6d60e41b81526001600160a01b0382166004820152602401610492565b335f90815260016020526040812060038101805491923492610d289084906111c0565b9091555050600281810180545f90610d419084906111c0565b90915550506001600160a01b0382165f9081526001602052604081206004018054349290610d709084906111c0565b92505081905550600160055f828254610d8991906111c0565b925050819055503460065f828254610da191906111c0565b90915550610db0905033610e93565b610db982610e93565b5f826001600160a01b0316346040515f6040518083038185875af1925050503d805f8114610e02576040519150601f19603f3d011682016040523d82523d5f602084013e610e07565b606091505b5050905080610e4e5760405162461bcd60e51b81526020600482015260136024820152721d1a5c081d1c985b9cd9995c8819985a5b1959606a1b6044820152606401610492565b6040513481526001600160a01b0384169033907f91d9aec1bf873fb589194ec67c304522c89e9e1de41ed647cf135fb41226befc9060200160405180910390a3505050565b6001600160a01b0381165f9081526002602052604090205460ff16610ef0576001600160a01b0381165f908152600260205260408120805460ff191660019081179091556003805491929091610eea9084906111c0565b90915550505b50565b5f60208284031215610f03575f80fd5b81356001600160a01b0381168114610f19575f80fd5b9392505050565b5f60208284031215610f30575f80fd5b5035919050565b60018060a01b0381511682525f60208201516060602085015280518060608601525f5b81811015610f775760208184018101516080888401015201610f5a565b505f6080828701015260408401519150610f9c60408601836001600160401b03169052565b601f01601f1916939093016080019392505050565b5f602082016020835280845180835260408501915060408160051b8601019250602086015f5b8281101561100857603f19878603018452610ff3858351610f37565b94506020938401939190910190600101610fd7565b50929695505050505050565b602081525f610f196020830184610f37565b5f8060208385031215611037575f80fd5b82356001600160401b0381111561104c575f80fd5b8301601f8101851361105c575f80fd5b80356001600160401b03811115611071575f80fd5b856020828401011115611082575f80fd5b6020919091019590945092505050565b5f610100820190506001600160401b0383511682526001600160401b0360208401511660208301526001600160401b03604084015116604083015260608301516110e760608401826001600160401b03169052565b50608083015161110260808401826001600160401b03169052565b5060a083015160a083015260c083015160c083015260e083015160e083015292915050565b5f60208284031215611137575f80fd5b5051919050565b634e487b7160e01b5f52601160045260245ffd5b5f8261116c57634e487b7160e01b5f52601260045260245ffd5b500490565b818103818111156111845761118461113e565b92915050565b6001600160401b0381811683821601908111156111845761118461113e565b80820281158282048414176111845761118461113e565b808201808211156111845761118461113e565b634e487b7160e01b5f52604160045260245ffd5b634e487b7160e01b5f52603260045260245ffd5b600181811c9082168061120f57607f821691505b60208210810361122d57634e487b7160e01b5f52602260045260245ffd5b50919050565b601f82111561127a57805f5260205f20601f840160051c810160208510156112585750805b601f840160051c820191505b81811015611277575f8155600101611264565b50505b505050565b81516001600160401b03811115611298576112986111d3565b6112ac816112a684546111fb565b84611233565b6020601f8211600181146112de575f83156112c75750848201515b5f19600385901b1c1916600184901b178455611277565b5f84815260208120601f198516915b8281101561130d57878501518255602094850194600190920191016112ed565b508482101561132a57868401515f19600387901b60f8161c191681555b50505050600190811b01905550565b60208152816020820152818360408301375f818301604090810191909152601f909201601f1916010191905056fea2646970667358221220a3c0d8270bb060fdf30dd611c23478471e8bec2229e608f2e36e4ea498e156e764736f6c634300081a0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.26+commit.8a97fa7a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"agentIdContract\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"}],\"name\":\"AlreadyCheckedInToday\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"EmptyMessage\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"bytesGiven\",\"type\":\"uint256\"}],\"name\":\"MessageTooLong\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"}],\"name\":\"NoAgentId\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"readyAt\",\"type\":\"uint256\"}],\"name\":\"PostCooldown\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SelfTip\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroTip\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"agent\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"day\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"streak\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"points\",\"type\":\"uint256\"}],\"name\":\"CheckedIn\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"author\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"text\",\"type\":\"string\"}],\"name\":\"MessagePosted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Tipped\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"AGENT_ID\",\"outputs\":[{\"internalType\":\"contract IAgentId\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MAX_MESSAGE_BYTES\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"POST_COOLDOWN\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"}],\"name\":\"agentStats\",\"outputs\":[{\"components\":[{\"internalType\":\"uint64\",\"name\":\"checkIns\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"streak\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"lastCheckInDay\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"messages\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"lastPostAt\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"points\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tippedTotal\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"receivedTotal\",\"type\":\"uint256\"}],\"internalType\":\"struct AgentWall.Stats\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"checkIn\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"}],\"name\":\"hasInteracted\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"}],\"name\":\"holdsAgentId\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"count\",\"type\":\"uint256\"}],\"name\":\"latestMessages\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"author\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"text\",\"type\":\"string\"},{\"internalType\":\"uint64\",\"name\":\"timestamp\",\"type\":\"uint64\"}],\"internalType\":\"struct AgentWall.Message[]\",\"name\":\"out\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"messageAt\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"author\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"text\",\"type\":\"string\"},{\"internalType\":\"uint64\",\"name\":\"timestamp\",\"type\":\"uint64\"}],\"internalType\":\"struct AgentWall.Message\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"messageCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"text\",\"type\":\"string\"}],\"name\":\"postMessage\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"tip\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalAgents\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalCheckIns\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalTipVolume\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalTips\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Agent ID contract (BNB Chain mainnet): 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F      (SPACE ID Agent ID, symbol AI, ERC-721, non-transferable).\",\"kind\":\"dev\",\"methods\":{},\"title\":\"AgentWall \\u2014 the on-chain hall for Agent ID holders\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"AGENT_ID()\":{\"notice\":\"The Agent ID NFT contract this hall gates on. Set once at         deployment (on BNB Chain mainnet: the SPACE ID Agent ID contract         0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F) and immutable after.\"},\"agentStats(address)\":{\"notice\":\"One agent's full stats.\"},\"checkIn()\":{\"notice\":\"Check in for today (UTC). Consecutive days build a streak;         each check-in earns 10 points plus a streak bonus of up to 40.\"},\"hasInteracted(address)\":{\"notice\":\"Whether an address has ever interacted with the hall.\"},\"holdsAgentId(address)\":{\"notice\":\"Whether an address holds at least one Agent ID.\"},\"latestMessages(uint256)\":{\"notice\":\"The newest `count` messages, newest first (fewer near genesis).\"},\"messageAt(uint256)\":{\"notice\":\"One message by id (ids start at 0 and grow with each post).\"},\"messageCount()\":{\"notice\":\"How many messages the wall holds.\"},\"postMessage(string)\":{\"notice\":\"Post a message to the wall. One post per hour per agent.\"},\"tip(address)\":{\"notice\":\"Tip another Agent ID holder in BNB. The full amount is forwarded         to the recipient in this same transaction; nothing is held here.\"}},\"notice\":\"A public hall that only Agent ID holders can use:         - daily check-ins with streaks and points,         - a public message wall,         - BNB tips sent from one Agent ID holder to another.         Holding an Agent ID (an `name.ai` Agentic Wallet identity) is the only         membership card. The contract has no owner, no admin keys, no fees and         never custodies funds: tips are forwarded to their recipient in the         same transaction that sends them.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"AgentWall.sol\":\"AgentWall\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"AgentWall.sol\":{\"keccak256\":\"0x1c8aa4dd7b770193323efd7b96f8fd6f2984481ce29b029682259fb17c96d3d2\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://767d0f8efcdd81b27d9005bcf20f52e501e33f6fa1dacdd88928f67cef5f8f0c\",\"dweb:/ipfs/QmbF34vi4ioaPyfQiZ3vNAJKHNUtEpVYQSGCXomRryCHfm\"]}},\"version\":1}"
+}
